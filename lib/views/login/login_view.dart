@@ -93,17 +93,3 @@ Widget _signUpText(BuildContext context) {
     ),
   );
 }
-
-Widget field() {
-  return TextField(
-    decoration: InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      filled: true,
-      hintStyle: TextStyle(color: Colors.grey[800]),
-      hintText: "Type in your text",
-      fillColor: Colors.white70,
-    ),
-  );
-}
