@@ -39,6 +39,26 @@ class _LoginViewState extends State<LoginView> {
                   initialValue: "Password",
                   icon: MyImages.locker,
                 ),
+                const SizedBox(height: 40),
+                _forgetPasswordText(),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(MyColors.anotherPink),
+                      shape: WidgetStateProperty.all( RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                      )),
+                      foregroundColor: WidgetStateProperty.all(MyColors.white)
+
+                    ),
+                    onPressed: () {},
+                    child: const Text('Sign in'),
+                  ),
+                ),
                 _signUpText(context),
                 const SizedBox(height: 62),
               ],
@@ -57,6 +77,17 @@ Widget _signInText() {
       'Sign in',
       style: TextStyle(
           fontSize: 30, fontWeight: FontWeight.w700, color: MyColors.purple),
+    ),
+  );
+}
+
+Widget _forgetPasswordText() {
+  return Align(
+    alignment: Alignment.centerRight,
+    child: Text(
+      'Forgot Password?',
+      style: TextStyle(
+          fontSize: 15, fontWeight: FontWeight.w700, color: MyColors.purple),
     ),
   );
 }
