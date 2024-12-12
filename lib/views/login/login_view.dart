@@ -29,18 +29,17 @@ class _LoginViewState extends State<LoginView> {
                 Image.asset(MyImages.logo),
                 const SizedBox(height: 21),
                 _signInText(),
-                ElevatedButton(
-                  child: const Text('Open route'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterView()),
-                    );
-                  },
+                const SizedBox(height: 46),
+                const BasicTextFormField(
+                  initialValue: "Email or User Name",
+                  icon: MyImages.user,
                 ),
-                const BasicTextFormField(initialValue: "email"),
-                _dontHaveAccountText(context),
+                const SizedBox(height: 40),
+                const BasicTextFormField(
+                  initialValue: "Password",
+                  icon: MyImages.locker,
+                ),
+                _signUpText(context),
                 const SizedBox(height: 62),
               ],
             ),
@@ -62,12 +61,12 @@ Widget _signInText() {
   );
 }
 
-Widget _dontHaveAccountText(BuildContext context) {
+Widget _signUpText(BuildContext context) {
   return Expanded(
     child: Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
-        child:  Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('don\'t have account? ',
@@ -75,21 +74,36 @@ Widget _dontHaveAccountText(BuildContext context) {
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: MyColors.purple)),
-            Text('Sign up',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: MyColors.purple)),
+            GestureDetector(
+              child: Text('Sign up',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: MyColors.purple)),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterView()),
+                ),
+              },
+            ),
           ],
         ),
-
-        onTap: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const RegisterView()),
-          ),
-        },
       ),
+    ),
+  );
+}
+
+Widget field() {
+  return TextField(
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      filled: true,
+      hintStyle: TextStyle(color: Colors.grey[800]),
+      hintText: "Type in your text",
+      fillColor: Colors.white70,
     ),
   );
 }
