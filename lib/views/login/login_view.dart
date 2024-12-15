@@ -28,16 +28,17 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 62),
                 Image.asset(MyImages.logo),
                 const SizedBox(height: 21),
-                _signInText(),
+                sectionText('Sign in'),
                 const SizedBox(height: 46),
                 const BasicTextFormField(
                   initialValue: "Email or User Name",
-                  icon: MyImages.user,
+                  prefixIcon: MyImages.user,
                 ),
                 const SizedBox(height: 40),
                 const BasicTextFormField(
                   initialValue: "Password",
-                  icon: MyImages.locker,
+                  prefixIcon: MyImages.padlock,
+                  suffixIcon: MyImages.eye,
                 ),
                 const SizedBox(height: 40),
                 _forgetPasswordText(),
@@ -47,19 +48,19 @@ class _LoginViewState extends State<LoginView> {
                   height: 50,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(MyColors.anotherPink),
-                      shape: WidgetStateProperty.all( RoundedRectangleBorder(
+                        backgroundColor:
+                            WidgetStateProperty.all(MyColors.anotherPink),
+                        shape: WidgetStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
-                      )),
-                      foregroundColor: WidgetStateProperty.all(MyColors.white)
-
-                    ),
+                        )),
+                        foregroundColor:
+                            WidgetStateProperty.all(MyColors.white)),
                     onPressed: () {},
                     child: const Text('Sign in'),
                   ),
                 ),
-                _signUpText(context),
+                bottomText(
+                    'don\'t have account?', context, (context) => const RegisterView(), 'Sign up'),
                 const SizedBox(height: 62),
               ],
             ),
@@ -70,11 +71,11 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
-Widget _signInText() {
+Widget sectionText(String text) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Text(
-      'Sign in',
+      text,
       style: TextStyle(
           fontSize: 30, fontWeight: FontWeight.w700, color: MyColors.purple),
     ),
@@ -92,7 +93,8 @@ Widget _forgetPasswordText() {
   );
 }
 
-Widget _signUpText(BuildContext context) {
+Widget bottomText(String displayText, BuildContext context, WidgetBuilder jumpToWidget,
+    String activeText) {
   return Expanded(
     child: Align(
       alignment: Alignment.bottomCenter,
@@ -100,13 +102,13 @@ Widget _signUpText(BuildContext context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('don\'t have account? ',
+            Text('$displayText ',
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: MyColors.purple)),
             GestureDetector(
-              child: Text('Sign up',
+              child: Text(activeText,
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -114,7 +116,7 @@ Widget _signUpText(BuildContext context) {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegisterView()),
+                  MaterialPageRoute(builder: jumpToWidget),
                 ),
               },
             ),
