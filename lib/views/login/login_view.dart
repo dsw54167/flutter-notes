@@ -1,5 +1,6 @@
 import 'package:dsw54167/utils/my_images.dart';
 import 'package:dsw54167/views/register/register_view.dart';
+import 'package:dsw54167/views/tasks/tasks_view.dart';
 import 'package:dsw54167/views/widgets/basic_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -30,15 +31,22 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 21),
                 sectionText('Sign in'),
                 const SizedBox(height: 46),
-                const BasicTextFormField(
+                BasicTextFormField(
                   initialValue: "Email or User Name",
                   prefixIcon: MyImages.user,
+                  validator: (value) {
+                    return "user@gmail.com" == value ? null : 'Invalid email';
+                  },
                 ),
                 const SizedBox(height: 40),
-                const BasicTextFormField(
+                BasicTextFormField(
                   initialValue: "Password",
                   prefixIcon: MyImages.padlock,
                   suffixIcon: MyImages.eye,
+                  validator: (value) {
+                    return "password" == value ? null : 'Invalid password';
+                  },
+                  maskInput: true,
                 ),
                 const SizedBox(height: 40),
                 _forgetPasswordText(),
@@ -55,12 +63,18 @@ class _LoginViewState extends State<LoginView> {
                         )),
                         foregroundColor:
                             WidgetStateProperty.all(MyColors.white)),
-                    onPressed: () {},
+                    onPressed: () {
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TasksView()));
+                    },
                     child: const Text('Sign in'),
                   ),
                 ),
-                bottomText(
-                    'don\'t have account?', context, (context) => const RegisterView(), 'Sign up'),
+                bottomText('don\'t have account?', context,
+                    (context) => const RegisterView(), 'Sign up'),
                 const SizedBox(height: 62),
               ],
             ),
@@ -93,8 +107,8 @@ Widget _forgetPasswordText() {
   );
 }
 
-Widget bottomText(String displayText, BuildContext context, WidgetBuilder jumpToWidget,
-    String activeText) {
+Widget bottomText(String displayText, BuildContext context,
+    WidgetBuilder jumpToWidget, String activeText) {
   return Expanded(
     child: Align(
       alignment: Alignment.bottomCenter,
