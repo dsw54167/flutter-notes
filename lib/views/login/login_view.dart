@@ -13,8 +13,9 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
+final _formKey = GlobalKey<FormState>();
+
 class _LoginViewState extends State<LoginView> {
-  var login;
 
   @override
   Widget build(BuildContext context) {
@@ -24,59 +25,63 @@ class _LoginViewState extends State<LoginView> {
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const SizedBox(height: 62),
-                Image.asset(MyImages.logo),
-                const SizedBox(height: 21),
-                sectionText('Sign in'),
-                const SizedBox(height: 46),
-                BasicTextFormField(
-                  initialValue: "Email or User Name",
-                  prefixIcon: MyImages.user,
-                  validator: (value) {
-                    return "user@gmail.com" == value ? null : 'Invalid email';
-                  },
-                ),
-                const SizedBox(height: 40),
-                BasicTextFormField(
-                  initialValue: "Password",
-                  prefixIcon: MyImages.padlock,
-                  suffixIcon: MyImages.eye,
-                  validator: (value) {
-                    return "password" == value ? null : 'Invalid password';
-                  },
-                  maskInput: true,
-                ),
-                const SizedBox(height: 40),
-                _forgetPasswordText(),
-                const SizedBox(height: 40),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStateProperty.all(MyColors.anotherPink),
-                        shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        )),
-                        foregroundColor:
-                            WidgetStateProperty.all(MyColors.white)),
-                    onPressed: () {
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TasksView()));
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const SizedBox(height: 62),
+                  Image.asset(MyImages.logo),
+                  const SizedBox(height: 21),
+                  sectionText('Sign in'),
+                  const SizedBox(height: 46),
+                  BasicTextFormField(
+                    initialValue: "Email or User Name",
+                    prefixIcon: MyImages.user,
+                    validator: (value) {
+                      return "user@gmail.com" == value ? null : 'Invalid email';
                     },
-                    child: const Text('Sign in'),
                   ),
-                ),
-                bottomText('don\'t have account?', context,
-                    (context) => const RegisterView(), 'Sign up'),
-                const SizedBox(height: 62),
-              ],
+                  const SizedBox(height: 40),
+                  BasicTextFormField(
+                    initialValue: "Password",
+                    prefixIcon: MyImages.padlock,
+                    suffixIcon: MyImages.eye,
+                    validator: (value) {
+                      return "password" == value ? null : 'Invalid password';
+                    },
+                    maskInput: true,
+                  ),
+                  const SizedBox(height: 40),
+                  _forgetPasswordText(),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all(MyColors.anotherPink),
+                          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          )),
+                          foregroundColor:
+                              WidgetStateProperty.all(MyColors.white)),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TasksView()));
+                        }
+                      },
+                      child: const Text('Sign in'),
+                    ),
+                  ),
+                  bottomText('don\'t have account?', context,
+                      (context) => const RegisterView(), 'Sign up'),
+                  const SizedBox(height: 62),
+                ],
+              ),
             ),
           ),
         ),

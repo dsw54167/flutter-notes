@@ -20,7 +20,6 @@ class BasicTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         validator: validator,
-        autovalidateMode: AutovalidateMode.onUnfocus,
         obscureText: maskInput,
         decoration: InputDecoration(
           hintText: initialValue,
@@ -31,6 +30,7 @@ class BasicTextFormField extends StatelessWidget {
                   width: 2.0, color: MyColors.pink, style: BorderStyle.solid)),
           prefixIcon: Image.asset(prefixIcon),
           suffixIcon: (suffixIcon != null ? Image.asset(suffixIcon!) : null),
+
         ));
   }
 }
