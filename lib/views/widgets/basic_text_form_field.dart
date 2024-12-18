@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class BasicTextFormField extends StatelessWidget {
   final String initialValue;
-  final String prefixIcon;
+  final String? prefixIcon;
   final String? suffixIcon;
   final FormFieldValidator? validator;
   final bool maskInput;
@@ -11,7 +11,7 @@ class BasicTextFormField extends StatelessWidget {
   const BasicTextFormField(
       {super.key,
       required this.initialValue,
-      required this.prefixIcon,
+      this.prefixIcon,
       this.suffixIcon,
       this.validator,
       this.maskInput = false});
@@ -28,7 +28,7 @@ class BasicTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
               borderSide: BorderSide(
                   width: 2.0, color: MyColors.pink, style: BorderStyle.solid)),
-          prefixIcon: Image.asset(prefixIcon),
+          prefixIcon: prefixIcon != null ?  Image.asset(prefixIcon!) : null,
           suffixIcon: (suffixIcon != null ? Image.asset(suffixIcon!) : null),
 
         ));

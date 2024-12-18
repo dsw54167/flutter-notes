@@ -38,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
                     initialValue: "Email or User Name",
                     prefixIcon: MyImages.user,
                     validator: (value) {
-                      return "user@gmail.com" == value ? null : 'Invalid email';
+                      return "user" == value ? null : 'Invalid email';
                     },
                   ),
                   const SizedBox(height: 40),
@@ -47,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
                     prefixIcon: MyImages.padlock,
                     suffixIcon: MyImages.eye,
                     validator: (value) {
-                      return "password" == value ? null : 'Invalid password';
+                      return "pass" == value ? null : 'Invalid password';
                     },
                     maskInput: true,
                   ),
