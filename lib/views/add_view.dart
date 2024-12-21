@@ -20,7 +20,6 @@ class _AddViewState extends State<AddView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),

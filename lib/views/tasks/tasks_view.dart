@@ -1,5 +1,6 @@
 import 'package:dsw54167/views/add_view.dart';
 import 'package:dsw54167/views/login/login_view.dart';
+import 'package:dsw54167/views/sharedPreferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class TasksView extends StatelessWidget {
@@ -32,6 +33,7 @@ class TasksView extends StatelessWidget {
           ),
           bottomNavigationBar: ElevatedButton(
               onPressed: () {
+                LoginSupport().logoutUser();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const LoginView()));
               },
