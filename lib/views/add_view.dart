@@ -1,22 +1,38 @@
 import 'package:dsw54167/views/tasks/tasks_view.dart';
 import 'package:flutter/material.dart';
 
-class AddView extends StatefulWidget {
-  final String? _title;
-  final String? _description;
+import '../db/note_database.dart';
+import '../model/note.dart';
 
-  AddView(this._title, this._description, {super.key});
+class AddView extends StatefulWidget {
+  final Note? note;
+
+  const AddView(this.note, {super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _AddViewState(_title, _description);
+    return _AddViewState();
   }
 }
 
 class _AddViewState extends State<AddView> {
   String? title;
   String? desc;
-  _AddViewState(this.title, this.desc);
+  int? id;
+
+  Future addNote() async {
+    final note = Note(
+      title: title!,
+      description: desc!,
+      createdTime: DateTime.now(),
+    );
+
+    var isUpdate = widget.note != null ? true : false;
+    if (isUpdate)
+      await NotesDatabase.instance.update(note);
+    else
+      await NotesDatabase.instance.create(note);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +46,7 @@ class _AddViewState extends State<AddView> {
             TextFormField(
               initialValue: title ?? "Title",
               onChanged: (value) => setState(() {
-                this.title = value;
+                title = value;
               }),
             ),
             const SizedBox(height: 62),
@@ -45,6 +61,7 @@ class _AddViewState extends State<AddView> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            addNote();
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const TasksView()));
           },
