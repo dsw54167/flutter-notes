@@ -5,29 +5,23 @@ import '../db/note_database.dart';
 import '../model/note.dart';
 
 class AddView extends StatefulWidget {
-  final Note? note;
+  final Note note;
 
   const AddView(this.note, {super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _AddViewState();
+    return _AddViewState(note);
   }
 }
 
 class _AddViewState extends State<AddView> {
-  String? title;
-  String? desc;
-  int? id;
+  Note note;
+
+  _AddViewState(this.note);
 
   Future addNote() async {
-    final note = Note(
-      title: title!,
-      description: desc!,
-      createdTime: DateTime.now(),
-    );
-
-    var isUpdate = widget.note != null ? true : false;
+    var isUpdate = widget.note.id != null ? true : false;
     if (isUpdate)
       await NotesDatabase.instance.update(note);
     else
@@ -44,17 +38,17 @@ class _AddViewState extends State<AddView> {
           children: [
             const SizedBox(height: 62),
             TextFormField(
-              initialValue: title ?? "Title",
+              initialValue: note.title ?? "Title",
               onChanged: (value) => setState(() {
-                title = value;
+                note.title = value;
               }),
             ),
             const SizedBox(height: 62),
             TextFormField(
               maxLines: 10,
-              initialValue: desc ?? "Description",
+              initialValue: note.description ?? "Description",
               onChanged: (value) => setState(() {
-                this.desc = value;
+                note.description = value;
               }),
             )
           ],

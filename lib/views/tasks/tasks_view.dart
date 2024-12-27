@@ -61,8 +61,11 @@ class _TasksViewState extends State<TasksView> {
               }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddView(null)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AddView(Note(createdTime: DateTime.now()))));
           loadTasks();
         },
         child: const Icon(Icons.add),
@@ -90,7 +93,7 @@ Widget _clickableContainer(BuildContext context, Note note, removeTask) {
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             color: MyColors.white),
         height: 50,
-        child: Text(note.title),
+        child: Text(note.title!),
       ),
       onTap: () => {
         Navigator.push(

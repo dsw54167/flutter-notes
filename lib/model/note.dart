@@ -14,14 +14,14 @@ class NoteFields {
 
 class Note {
   final int? id;
-  final String title;
-  final String description;
+  String? title;
+  String? description;
   final DateTime createdTime;
 
-  const Note({
+  Note({
     this.id,
-    required this.title,
-    required this.description,
+    this.title,
+    this.description,
     required this.createdTime,
   });
 
@@ -39,16 +39,16 @@ class Note {
       );
 
   static Note fromJson(Map<String, Object?> json) => Note(
-    id: json[NoteFields.id] as int?,
-    title: json[NoteFields.title] as String,
-    description: json[NoteFields.description] as String,
-    createdTime: DateTime.parse(json[NoteFields.time] as String),
-  );
+        id: json[NoteFields.id] as int?,
+        title: json[NoteFields.title] as String,
+        description: json[NoteFields.description] as String,
+        createdTime: DateTime.parse(json[NoteFields.time] as String),
+      );
 
   Map<String, Object?> toJson() => {
-    NoteFields.id: id,
-    NoteFields.title: title,
-    NoteFields.description: description,
-    NoteFields.time: createdTime.toIso8601String(),
-  };
+        NoteFields.id: id,
+        NoteFields.title: title,
+        NoteFields.description: description,
+        NoteFields.time: createdTime.toIso8601String(),
+      };
 }
