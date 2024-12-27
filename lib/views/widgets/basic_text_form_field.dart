@@ -22,15 +22,17 @@ class BasicTextFormField extends StatelessWidget {
         validator: validator,
         obscureText: maskInput,
         decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide(
+                  width: 2.0, color: MyColors.pink, style: BorderStyle.solid)),
           hintText: initialValue,
-          // disabledBorder: ,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
               borderSide: BorderSide(
                   width: 2.0, color: MyColors.pink, style: BorderStyle.solid)),
-          prefixIcon: prefixIcon != null ?  Image.asset(prefixIcon!) : null,
+          prefixIcon: prefixIcon != null ? Image.asset(prefixIcon!) : null,
           suffixIcon: (suffixIcon != null ? Image.asset(suffixIcon!) : null),
-
         ));
   }
 }

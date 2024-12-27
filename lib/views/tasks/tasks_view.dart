@@ -1,4 +1,5 @@
 import 'package:dsw54167/db/note_database.dart';
+import 'package:dsw54167/utils/my_colors.dart';
 import 'package:dsw54167/views/add_view.dart';
 import 'package:dsw54167/views/login/login_view.dart';
 import 'package:dsw54167/views/sharedPreferences/shared_preferences.dart';
@@ -45,50 +46,53 @@ class _TasksViewState extends State<TasksView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: loading
-              ? const CircularProgressIndicator()
-              : ListView.builder(
+      body: loading
+          ? const CircularProgressIndicator()
+          : ListView.builder(
               itemCount: notes.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
+                  width: double.infinity,
                   height: 50,
-                  color: Colors.amber,
                   child: Center(
-                      child: _clickableContainer(
-                          context, notes[index], (direction) => removeTask(notes[index]))),
+                      child: _clickableContainer(context, notes[index],
+                          (direction) => removeTask(notes[index]))),
                 );
               }),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AddView(null)));
-              loadTasks();
-            },
-            child: const Icon(Icons.add),
-          ),
-          bottomNavigationBar: ElevatedButton(
-              onPressed: () {
-                LoginSupport().logoutUser();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LoginView()));
-              },
-              child: const Icon(Icons.logout)),
-        ));
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddView(null)));
+          loadTasks();
+        },
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: ElevatedButton(
+          onPressed: () {
+            LoginSupport().logoutUser();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginView()));
+          },
+          child: const Icon(Icons.logout)),
+    ));
   }
 }
 
 Widget _clickableContainer(BuildContext context, Note note, removeTask) {
   return Dismissible(
-    key: Key(note.title),
+    key: Key(note.title!),
     onDismissed: removeTask,
     child: InkWell(
       child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            border: Border.all(color: MyColors.anotherPink),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            color: MyColors.white),
         height: 50,
-        color: Colors.amber[600],
         child: Text(note.title),
       ),
-      onTap: () =>
-      {
+      onTap: () => {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddView(note)))
       },
